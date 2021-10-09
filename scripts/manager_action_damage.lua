@@ -609,7 +609,6 @@ function onDamageRoll(rSource, rRoll)
 	local bMaximize = rRoll.sDesc:match(" %[MAXIMIZE%]");
 	local bEmpower = rRoll.sDesc:match(" %[EMPOWER%]");
 	
-	Debug.console(rRoll);
 	-- Apply maximize meta damage
 	if bMaximize then
 		for _, v in ipairs(rRoll.aDice) do
@@ -623,7 +622,6 @@ function onDamageRoll(rSource, rRoll)
 	
 	-- Decode damage types
 	decodeDamageTypes(rRoll, true);
-	Debug.console(rRoll);
 
 	-- Apply empower meta damage
 	if bEmpower then
@@ -678,7 +676,6 @@ function onDamageRoll(rSource, rRoll)
 		for _,vDie in pairs(vClause.dice) do
 			nIndex = nIndex + 1;
 			local oDie = rRoll.aDice[nIndex];
-			Debug.console(bReroll, oDie);
 			if bReroll and oDie.result == 1 then				
 				local rerollDie = {};
 				rerollDie.type = oDie.type;
@@ -698,7 +695,6 @@ function onDamageRoll(rSource, rRoll)
 					nTotal = nTotal + newVal;
 				end
 				table.insert(newDice, rerollDie);
-				Debug.console(newDice);
 			else
 				nTotal = nTotal + oDie.result;
 				table.insert(newDice, oDie);
@@ -706,10 +702,8 @@ function onDamageRoll(rSource, rRoll)
 		end
 		vClause.nTotal = nTotal;
 	end
-	Debug.console(newDice);
 	rRoll.aDice = newDice;
 	
-	Debug.console(rRoll);
 	-- Encode the damage results for damage application and readability
 	encodeDamageText(rRoll);
 end
