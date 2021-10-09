@@ -685,6 +685,7 @@ function onDamageRoll(rSource, rRoll)
 				else
 					dieNum = tonumber(vDie:sub(2));
 				end
+				oDie.value = 0;
 				oDie.type = "r" .. dieNum;
 				table.insert(newDice, oDie);
 
@@ -696,7 +697,7 @@ function onDamageRoll(rSource, rRoll)
 				end
 				table.insert(newDice, rerollDie);
 			else
-				nTotal = nTotal + oDie.result;
+				nTotal = nTotal + oDie.value;
 				table.insert(newDice, oDie);
 			end
 		end
