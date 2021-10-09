@@ -679,10 +679,7 @@ function onDamageRoll(rSource, rRoll)
 			nIndex = nIndex + 1;
 			local oDie = rRoll.aDice[nIndex];
 			Debug.console(bReroll, oDie);
-			if bReroll and oDie.result == 1 then
-				oDie.result = nil;
-				table.insert(newDice, oDie);
-				
+			if bReroll and oDie.result == 1 then				
 				local rerollDie = {};
 				rerollDie.type = oDie.type;
 				local dieNum = 0;
@@ -691,6 +688,9 @@ function onDamageRoll(rSource, rRoll)
 				else
 					dieNum = tonumber(vDie:sub(2));
 				end
+				oDie.type = "r" .. dieNum;
+				table.insert(newDice, oDie);
+
 				if dieNum > 0 then
 					local newVal = math.random(dieNum);
 					rerollDie.value = newVal;
