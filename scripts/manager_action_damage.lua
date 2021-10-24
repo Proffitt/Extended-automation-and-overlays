@@ -672,11 +672,19 @@ function onDamageRoll(rSource, rRoll)
 	nIndex = 0;
 	for _,vClause in pairs(rRoll.clauses) do
 		local bReroll = vClause.dmgtype:match("reroll");
+		local bReroll2 = vClause.dmgtype:match("reroll2");
+		local iReroll = 0;
+		if bReroll then
+			iReroll = 1;
+		end
+		if bReroll2 then
+			iReroll = 2;
+		end
 		local nTotal = vClause.modifier;
 		for _,vDie in pairs(vClause.dice) do
 			nIndex = nIndex + 1;
 			local oDie = rRoll.aDice[nIndex];
-			if bReroll and oDie.result == 1 then				
+			if iReroll > 0 and oDie.result <= iReroll then				
 				local rerollDie = {};
 				rerollDie.type = oDie.type;
 				local dieNum = 0;
